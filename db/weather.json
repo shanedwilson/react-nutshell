@@ -1,0 +1,14 @@
+{
+  "weather1": {
+    "uid": "RUqgPSmx7ZhN1lCZYmGMQv5mEf82",
+    "city": "San Francisco",
+    "state": "CA",
+    "isCurrent": true
+  },
+  "weather2": {
+    "uid": "RUqgPSmx7ZhN1lCZYmGMQv5mEf82",
+    "city": "Nashville",
+    "state": "TN",
+    "isCurrent": false
+  }
+} 
