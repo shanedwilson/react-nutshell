@@ -1,5 +1,4 @@
 import React from 'react';
-// import Requests from '../../../helpers/data/messageRequests';
 import SingleMessage from '../../SingleMessage/SingleMessage';
 import './Messages.scss';
 import smashRequests from '../../../helpers/data/smashRequests';
