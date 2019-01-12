@@ -1,11 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import messageShape from '../../helpers/propz/messageShape';
 
 import './SingleMessage.scss';
 
 class SingleMessage extends React.Component {
   static propTypes = {
-    message: PropTypes.messageShape.messageShape,
+    message: messageShape,
   }
 
   render() {
