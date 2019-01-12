@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './SingleMessage.scss';
 
 class SingleMessage extends React.Component {
+  static propTypes = {
+    message: PropTypes.messageShape.messageShape,
+  }
+
   render() {
     return (
       <div className="single-message mt-3">
