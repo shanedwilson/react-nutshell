@@ -1,7 +1,8 @@
 import React from 'react';
-import messageRequests from '../../../helpers/data/messageRequests';
+// import Requests from '../../../helpers/data/messageRequests';
 import SingleMessage from '../../SingleMessage/SingleMessage';
 import './Messages.scss';
+import smashRequests from '../../../helpers/data/smashRequests';
 
 class Messages extends React.Component {
   state = {
@@ -9,7 +10,7 @@ class Messages extends React.Component {
   }
 
   componentDidMount() {
-    messageRequests.getAllMessages()
+    smashRequests.getAllMessagesWithUserInfo()
       .then((messages) => {
         if (messages.length > 1) {
           messages.shift(messages.length - 1, messages.length);
