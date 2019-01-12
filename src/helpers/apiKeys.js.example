@@ -9,4 +9,8 @@ const apiKeys = {
   },
 };
 
-export default { apiKeys };
+weatherbit: {
+  apiKey: '',
+}
+
+export default apiKeys ;
