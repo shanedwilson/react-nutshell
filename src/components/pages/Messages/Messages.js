@@ -24,7 +24,8 @@ class Messages extends React.Component {
   }
 
   deleteSingleMessage = (messageId) => {
-    messageRequests.deleteMessage(messageId)
+    messageRequests.deleteMessage(messageId);
+    smashRequests.getAllMessagesWithUserInfo()
       .then((messages) => {
         if (messages.length > 10) {
           messages.shift(messages.length - 10, messages.length);
