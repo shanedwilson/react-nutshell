@@ -60,7 +60,7 @@ class Messages extends React.Component {
       />
     ));
     return (
-      <div className="messages-container mx-auto">
+      <div className="messages-container mx-auto mt-5">
         <h2>Messages</h2>
         <div className="messages">
           <div>{messageItems}</div>

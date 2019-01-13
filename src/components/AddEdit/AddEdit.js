@@ -63,12 +63,13 @@ class AddEdit extends React.Component {
     return (
       <div className="message-form col">
         <form onSubmit={this.formSubmit}>
-          <div className="form-group row mt-3 mx-auto">
-              <button className="btn btn-outline-secondary col-1" type="submit" onClick={this.formSubmit}>
+          <div class="input-group mt-3 mb-3">
+            <div class="input-group-prepend">
+              <button type="button" class="btn btn-outline-secondary">
                 <i className="fas fa-plus"></i>
               </button>
-            <div class="col-sm-10">
-              <input
+            </div>
+            <input
               type="text"
               id="message"
               className="form-control"
@@ -76,8 +77,7 @@ class AddEdit extends React.Component {
               aria-describedby="messageHelp"
               value={newMessage.message}
               onChange={this.messageChange}
-              />
-            </div>
+            />
           </div>
         </form>
       </div>

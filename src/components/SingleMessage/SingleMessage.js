@@ -34,7 +34,7 @@ class SingleMessage extends React.Component {
       };
 
       return (
-        <div className="single-message mt-3">
+        <div className="single-message m-3">
         <span className="message-user col-3">{this.props.message.userName}</span>
         <span className="message-text col-7 justify-content-end">{this.props.message.message}</span>
         <span className="col-1">{makeButtons()}</span>
