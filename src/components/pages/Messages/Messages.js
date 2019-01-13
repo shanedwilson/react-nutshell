@@ -15,7 +15,7 @@ class Messages extends React.Component {
     smashRequests.getAllMessagesWithUserInfo()
       .then((messages) => {
         if (messages.length > 10) {
-          messages.shift(messages.length - 10, messages.length);
+          messages.splice(0, messages.length - 10);
         }
         this.setState({ messages });
       })

@@ -62,7 +62,7 @@ class AddEdit extends React.Component {
         <form onSubmit={this.formSubmit}>
           <div className="input-group mt-3 mb-3">
             <div className="input-group-prepend">
-              <button type="button" className="btn btn-outline-secondary">
+              <button type="button" className="btn btn-outline-secondary" onClick={this.formSubmit}>
                 <i className="fas fa-plus"></i>
               </button>
             </div>
