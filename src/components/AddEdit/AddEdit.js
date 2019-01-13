@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import authRequests from '../../helpers/data/authRequests';
-// import messageRequests from '../../helpers/data/messageRequests';
+import messageRequests from '../../helpers/data/messageRequests';
 
 import './AddEdit.scss';
 
@@ -28,8 +28,7 @@ class AddEdit extends React.Component {
     e.preventDefault();
     const tempMessage = { ...this.state.newMessage };
     tempMessage[name] = e.target.value;
-    console.log(tempMessage[name]);
-    this.setState({ newListing: tempMessage });
+    this.setState({ newMessage: tempMessage });
   }
 
   messageChange = e => this.formFieldStringState('message', e);
@@ -39,56 +38,46 @@ class AddEdit extends React.Component {
     const { onSubmit } = this.props;
     const myMessage = { ...this.state.newMessage };
     myMessage.uid = authRequests.getCurrentUid();
-    myMessage.timestamp = moment();
+    myMessage.timestamp = moment().valueOf();
     onSubmit(myMessage);
     this.setState({ newMessage: defaultMessage });
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { isEditing, editId } = this.props;
-  //   if (prevProps !== this.props && isEditing) {
-  //     messageRequests.getSingleMessage(editId)
-  //       .then((message) => {
-  //         this.setState({ newMessage: message.data });
-  //       })
-  //       .catch((err) => {
-  //         console.error('error with getSingleMessage', err);
-  //       });
-  //   }
-  // }
-
-  handleEnterInput = (target) => {
-    if (target.key === 'Enter') {
-      const { onKeyUp } = this.props;
-      const myMessage = { ...this.state.newMessage };
-      myMessage.uid = authRequests.getCurrentUid();
-      onKeyUp(myMessage);
-      this.setState({ newMessage: defaultMessage });
+  componentDidUpdate(prevProps) {
+    const { isEditing, editId } = this.props;
+    if (prevProps !== this.props && isEditing) {
+      messageRequests.getSingleMessage(editId)
+        .then((message) => {
+          this.setState({ newMessage: message.data });
+        })
+        .catch((err) => {
+          console.error('error with getSingleMessage', err);
+        });
     }
   }
 
   render() {
     const { newMessage } = this.state;
     // const { isEditing } = this.props;
+    // console.log(isEditing);
     return (
-      <div className="listing-form col">
+      <div className="message-form col">
         <form onSubmit={this.formSubmit}>
-          <div className="form-group mb-3">
-            <div className="input-group-prepend">
-              <button className="btn btn-outline-secondary" type="submit">
+          <div className="form-group row mt-3 mx-auto">
+              <button className="btn btn-outline-secondary col-1" type="submit" onClick={this.formSubmit}>
                 <i className="fas fa-plus"></i>
               </button>
+            <div class="col-sm-10">
+              <input
+              type="text"
+              id="message"
+              className="form-control"
+              placeholder=""
+              aria-describedby="messageHelp"
+              value={newMessage.message}
+              onChange={this.messageChange}
+              />
             </div>
-            <input
-            type="text"
-            id="message"
-            className="form-control"
-            placeholder=""
-            aria-describedby="messageHelp"
-            value={newMessage.message}
-            onChange={this.messageChange}
-            onKeyUp={this.handleEnterInput}
-            />
           </div>
         </form>
       </div>
