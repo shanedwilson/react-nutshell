@@ -1,18 +1,20 @@
 import React from 'react';
 import SingleMessage from '../../SingleMessage/SingleMessage';
-import './Messages.scss';
 import smashRequests from '../../../helpers/data/smashRequests';
+import messageRequests from '../../../helpers/data/messageRequests';
+
+import './Messages.scss';
 
 class Messages extends React.Component {
   state = {
     messages: [],
   }
 
-  componentDidMount() {
+  getMessagesForComponent = () => {
     smashRequests.getAllMessagesWithUserInfo()
       .then((messages) => {
-        if (messages.length > 1) {
-          messages.shift(messages.length - 1, messages.length);
+        if (messages.length > 10) {
+          messages.shift(messages.length - 10, messages.length);
         }
         this.setState({ messages });
       })
@@ -21,12 +23,22 @@ class Messages extends React.Component {
       });
   }
 
+  componentDidMount() {
+    this.getMessagesForComponent();
+  }
+
+  deleteSingleMessage = (messageId) => {
+    messageRequests.deleteMessage(messageId);
+    this.getMessagesForComponent();
+  }
+
   render() {
     const messageItems = this.state.messages.map(message => (
-    <SingleMessage
-    key={message.id}
-    message={message}
-    />
+      <SingleMessage
+      key={message.id}
+      message={message}
+      deleteSingleMessage={this.deleteSingleMessage}
+      />
     ));
     return (
       <div className="messages-container mx-auto">

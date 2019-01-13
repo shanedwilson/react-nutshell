@@ -10,5 +10,17 @@
     "message": "The Sky",
     "timestamp": 1528763298536,
     "isEdited": true
+  },
+    "message3": {
+    "uid": "RUqgPSmx7ZhN1lCZYmGMQv5mEf82",
+    "message": "You think you're clever?",
+    "timestamp": 1528763298535,
+    "isEdited": false
+  },
+    "message4": {
+    "uid": "67890",
+    "message": "Quite. I wrote the fucking Declaration of Independence, asshole!",
+    "timestamp": 1528763298536,
+    "isEdited": true
   }
 } 
