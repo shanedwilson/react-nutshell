@@ -1,5 +1,6 @@
 import React from 'react';
 import SingleMessage from '../../SingleMessage/SingleMessage';
+import AddEdit from '../../AddEdit/AddEdit';
 import smashRequests from '../../../helpers/data/smashRequests';
 import messageRequests from '../../../helpers/data/messageRequests';
 
@@ -21,6 +22,19 @@ class Messages extends React.Component {
       .catch((err) => {
         console.error('error with friends GET', err);
       });
+  }
+
+  inputSubmitEvent = (newMessage) => {
+    messageRequests.createMessage(newMessage)
+      .then(() => {
+        smashRequests.getAllMessagesWithUserInfo()
+          .then((messages) => {
+            if (messages.length > 10) {
+              messages.shift(messages.length - 1, messages.length);
+            }
+            this.setState({ messages });
+          });
+      }).catch(err => console.error(err));
   }
 
     deleteSingleMessage = (messageId) => {
@@ -47,6 +61,7 @@ class Messages extends React.Component {
         <h2>Messages</h2>
         <div className="messages">
           <div className="">{messageItems}</div>
+          <AddEdit />
         </div>
       </div>
       );
