@@ -63,9 +63,9 @@ class AddEdit extends React.Component {
     return (
       <div className="message-form col">
         <form onSubmit={this.formSubmit}>
-          <div class="input-group mt-3 mb-3">
-            <div class="input-group-prepend">
-              <button type="button" class="btn btn-outline-secondary">
+          <div className="input-group mt-3 mb-3">
+            <div className="input-group-prepend">
+              <button type="button" className="btn btn-outline-secondary">
                 <i className="fas fa-plus"></i>
               </button>
             </div>

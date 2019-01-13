@@ -11,7 +11,7 @@ class Messages extends React.Component {
     messages: [],
   }
 
-  componentDidMount() {
+  getMessagesForComponent = () => {
     smashRequests.getAllMessagesWithUserInfo()
       .then((messages) => {
         if (messages.length > 10) {
@@ -24,31 +24,20 @@ class Messages extends React.Component {
       });
   }
 
-  messageSubmit = (newMessage) => {
-    messageRequests.createMessage(newMessage)
-      .then(() => {
-        smashRequests.getAllMessagesWithUserInfo()
-          .then((messages) => {
-            if (messages.length > 10) {
-              messages.shift(messages.length - 10, messages.length);
-            }
-            this.setState({ messages });
-          });
-      }).catch(err => console.error(err));
+  componentDidMount() {
+    this.getMessagesForComponent();
   }
 
   deleteSingleMessage = (messageId) => {
-    messageRequests.deleteMessage(messageId)
+    messageRequests.deleteMessage(messageId);
+    this.getMessagesForComponent();
+  }
+
+  messageSubmit = (newMessage) => {
+    messageRequests.createMessage(newMessage)
       .then(() => {
-        smashRequests.getAllMessagesWithUserInfo()
-          .then((messages) => {
-            if (messages.length > 10) {
-              messages.shift(messages.length - 10, messages.length);
-            }
-            this.setState({ messages });
-          });
-      })
-      .catch(err => console.error('error with delete single', err));
+        this.getMessagesForComponent();
+      });
   }
 
   render() {
