@@ -15,7 +15,7 @@ const defaultMessage = {
 
 class AddEdit extends React.Component {
   static propTypes = {
-    onsubmit: PropTypes.func,
+    onSubmit: PropTypes.func,
     editId: PropTypes.string,
   }
 
