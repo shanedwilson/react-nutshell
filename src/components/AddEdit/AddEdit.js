@@ -16,7 +16,6 @@ const defaultMessage = {
 class AddEdit extends React.Component {
   static propTypes = {
     onsubmit: PropTypes.func,
-    // isEditing: PropTypes.bool.isRequired,
     editId: PropTypes.string,
   }
 
@@ -58,8 +57,6 @@ class AddEdit extends React.Component {
 
   render() {
     const { newMessage } = this.state;
-    // const { isEditing } = this.props;
-    // console.log(isEditing);
     return (
       <div className="message-form col">
         <form onSubmit={this.formSubmit}>
