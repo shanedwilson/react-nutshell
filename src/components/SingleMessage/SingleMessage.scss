@@ -1,0 +1,12 @@
+.single-message {
+  display: flex;
+  border: solid gray 1px;
+}
+
+.message-user {
+  justify-content: flex-start;
+}
+
+.message-text {
+  text-align: right;
+}
