@@ -26,9 +26,10 @@ class SingleMessage extends React.Component {
 
   render() {
     const uid = authRequests.getCurrentUid();
+    const { message } = this.props;
 
     const makeButtons = () => {
-      if (this.props.message.uid === uid) {
+      if (message.uid === uid) {
         return (
           <div className="col">
               <button className="btn btn-default" onClick={this.editEvent}>
@@ -44,19 +45,19 @@ class SingleMessage extends React.Component {
     };
 
     const singleMessage = () => {
-      if (this.props.message.isEdited === false) {
+      if (message.isEdited === false) {
         return (
           <div className="single-message m-3">
-            <span className="message-user col-3">{this.props.message.userName}</span>
-            <span className="message-text col-7 justify-content-end">{this.props.message.message}</span>
+            <span className="message-user col-3">{message.userName}</span>
+            <span className="message-text col-7 justify-content-end">{message.message}</span>
             <span>{makeButtons()}</span>
           </div>
         );
       }
       return (
           <div className="single-message m-3">
-            <span className="message-user col-3">{this.props.message.userName}</span>
-            <span className="message-text col-7 justify-content-end">{this.props.message.message}</span>
+            <span className="message-user col-3">{message.userName}</span>
+            <span className="message-text col-7 justify-content-end">{message.message}</span>
             <span>{makeButtons()}</span>
             <span className="message-edited font-italic justify-content-end">edited</span>
           </div>
