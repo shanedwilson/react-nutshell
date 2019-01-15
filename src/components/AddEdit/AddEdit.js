@@ -17,6 +17,7 @@ class AddEdit extends React.Component {
   static propTypes = {
     onSubmit: PropTypes.func,
     editId: PropTypes.string,
+    isEditing: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -37,9 +38,15 @@ class AddEdit extends React.Component {
     const { onSubmit } = this.props;
     const myMessage = { ...this.state.newMessage };
     myMessage.uid = authRequests.getCurrentUid();
-    myMessage.timestamp = moment().valueOf();
-    onSubmit(myMessage);
-    this.setState({ newMessage: defaultMessage });
+    if (this.state.isEditing === false) {
+      myMessage.timestamp = moment().valueOf();
+      onSubmit(myMessage);
+      this.setState({ newMessage: defaultMessage });
+    } else {
+      myMessage.isEdited = true;
+      onSubmit(myMessage);
+      this.setState({ newMessage: defaultMessage });
+    }
   }
 
   componentDidUpdate(prevProps) {

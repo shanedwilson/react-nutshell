@@ -9,6 +9,9 @@ import './Messages.scss';
 class Messages extends React.Component {
   state = {
     messages: [],
+    editId: '-1',
+    selectedMessage: '-1',
+    isEditing: false,
   }
 
   getMessagesForComponent = () => {
@@ -33,11 +36,24 @@ class Messages extends React.Component {
     this.getMessagesForComponent();
   }
 
+  passMessageToEdit = messageId => this.setState({ isEditing: true, editId: messageId });
+
   messageSubmit = (newMessage) => {
-    messageRequests.createMessage(newMessage)
-      .then(() => {
-        this.getMessagesForComponent();
-      });
+    const { isEditing, editId } = this.state;
+    if (isEditing) {
+      messageRequests.updateMessage(newMessage, editId)
+        .then(() => {
+          this.getMessagesForComponent();
+          this.setState({ isEditing: false, editId: '-1' });
+        }).catch((err) => {
+          console.error('error with messages post', err);
+        });
+    } else {
+      messageRequests.createMessage(newMessage)
+        .then(() => {
+          this.getMessagesForComponent();
+        });
+    }
   }
 
   render() {
@@ -46,14 +62,17 @@ class Messages extends React.Component {
       key={message.id}
       message={message}
       deleteSingleMessage={this.deleteSingleMessage}
+      passMessageToEdit={ this.passMessageToEdit }
       />
     ));
     return (
-      <div className="messages-container mx-auto mt-5">
+      <div className="messages-container mx-auto mt-3">
         <h2>Messages</h2>
         <div className="messages">
           <div>{messageItems}</div>
-          <AddEdit onSubmit={ this.messageSubmit } />
+        </div>
+        <div>
+          <AddEdit onSubmit={ this.messageSubmit } isEditing={ this.state.isEditing } editId={ this.state.editId } />
         </div>
       </div>
     );

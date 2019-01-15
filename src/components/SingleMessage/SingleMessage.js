@@ -9,38 +9,48 @@ class SingleMessage extends React.Component {
   static propTypes = {
     message: messageShape,
     deleteSingleMessage: PropTypes.func,
+    passMessageToEdit: PropTypes.func,
   }
 
-    deleteEvent = (e) => {
-      e.preventDefault();
-      const { deleteSingleMessage, message } = this.props;
-      deleteSingleMessage(message.id);
-    }
+  deleteEvent = (e) => {
+    e.preventDefault();
+    const { deleteSingleMessage, message } = this.props;
+    deleteSingleMessage(message.id);
+  }
 
-    render() {
-      const uid = authRequests.getCurrentUid();
+  editEvent = (e) => {
+    e.preventDefault();
+    const { passMessageToEdit, message } = this.props;
+    passMessageToEdit(message.id);
+  }
 
-      const makeButtons = () => {
-        if (this.props.message.uid === uid) {
-          return (
-          <div>
+  render() {
+    const uid = authRequests.getCurrentUid();
+
+    const makeButtons = () => {
+      if (this.props.message.uid === uid) {
+        return (
+          <div className="col">
+              <button className="btn btn-default" onClick={this.editEvent}>
+                <i className="fas fa-pencil-alt"></i>
+              </button>
               <button className="btn btn-default" onClick={this.deleteEvent}>
                 <i className="fas fa-trash-alt"></i>
               </button>
           </div>
-          );
-        }
-        return <span className="col-2"></span>;
-      };
+        );
+      }
+      return <span className="col-2"></span>;
+    };
 
-      return (
+    return (
         <div className="single-message m-3">
         <span className="message-user col-3">{this.props.message.userName}</span>
         <span className="message-text col-7 justify-content-end">{this.props.message.message}</span>
-        <span className="col-1">{makeButtons()}</span>
+        <span>{makeButtons()}</span>
         </div>
-      );
-    }
+    );
+  }
 }
 
 export default SingleMessage;
