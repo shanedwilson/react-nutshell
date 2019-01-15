@@ -38,15 +38,13 @@ class AddEdit extends React.Component {
     const { onSubmit } = this.props;
     const myMessage = { ...this.state.newMessage };
     myMessage.uid = authRequests.getCurrentUid();
-    if (this.state.isEditing === false) {
+    if (this.props.isEditing === false) {
       myMessage.timestamp = moment().valueOf();
-      onSubmit(myMessage);
-      this.setState({ newMessage: defaultMessage });
     } else {
       myMessage.isEdited = true;
-      onSubmit(myMessage);
-      this.setState({ newMessage: defaultMessage });
     }
+    onSubmit(myMessage);
+    this.setState({ newMessage: defaultMessage });
   }
 
   componentDidUpdate(prevProps) {
