@@ -1,7 +1,8 @@
 .messages {
   border: solid black;
-  width: 50vw;
+  width: 75vw;
   height: 75vh;
+  overflow: auto;
 }
 
 .messages-container h2 {

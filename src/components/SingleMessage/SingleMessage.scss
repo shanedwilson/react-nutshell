@@ -1,6 +1,7 @@
 .single-message {
   display: flex;
   border: solid gray 1px;
+  background-color: white;
 }
 
 .message-user {
@@ -9,4 +10,8 @@
 
 .message-text {
   text-align: right;
+}
+
+.message-edited {
+  text-align: right
 }

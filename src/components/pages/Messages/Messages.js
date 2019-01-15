@@ -1,5 +1,6 @@
 import React from 'react';
 import SingleMessage from '../../SingleMessage/SingleMessage';
+import AddEdit from '../../AddEdit/AddEdit';
 import smashRequests from '../../../helpers/data/smashRequests';
 import messageRequests from '../../../helpers/data/messageRequests';
 
@@ -8,13 +9,16 @@ import './Messages.scss';
 class Messages extends React.Component {
   state = {
     messages: [],
+    editId: '-1',
+    selectedMessage: '-1',
+    isEditing: false,
   }
 
   getMessagesForComponent = () => {
     smashRequests.getAllMessagesWithUserInfo()
       .then((messages) => {
         if (messages.length > 10) {
-          messages.shift(messages.length - 10, messages.length);
+          messages.splice(0, messages.length - 10);
         }
         this.setState({ messages });
       })
@@ -32,19 +36,43 @@ class Messages extends React.Component {
     this.getMessagesForComponent();
   }
 
+  passMessageToEdit = messageId => this.setState({ isEditing: true, editId: messageId });
+
+  messageSubmit = (newMessage) => {
+    const { isEditing, editId } = this.state;
+    if (isEditing) {
+      messageRequests.updateMessage(newMessage, editId)
+        .then(() => {
+          this.getMessagesForComponent();
+          this.setState({ isEditing: false, editId: '-1' });
+        }).catch((err) => {
+          console.error('error with messages post', err);
+        });
+    } else {
+      messageRequests.createMessage(newMessage)
+        .then(() => {
+          this.getMessagesForComponent();
+        });
+    }
+  }
+
   render() {
     const messageItems = this.state.messages.map(message => (
       <SingleMessage
       key={message.id}
       message={message}
       deleteSingleMessage={this.deleteSingleMessage}
+      passMessageToEdit={ this.passMessageToEdit }
       />
     ));
     return (
-      <div className="messages-container mx-auto">
+      <div className="messages-container mx-auto mt-3">
         <h2>Messages</h2>
         <div className="messages">
-          <div className="">{messageItems}</div>
+          <div>{messageItems}</div>
+        </div>
+        <div>
+          <AddEdit onSubmit={ this.messageSubmit } isEditing={ this.state.isEditing } editId={ this.state.editId } />
         </div>
       </div>
     );
