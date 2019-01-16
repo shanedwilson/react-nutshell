@@ -57,7 +57,13 @@ class Messages extends React.Component {
   }
 
   render() {
-    const messageItems = this.state.messages.map(message => (
+    const {
+      isEditing,
+      editId,
+      messages,
+    } = this.state;
+
+    const messageItems = messages.map(message => (
       <SingleMessage
       key={message.id}
       message={message}
@@ -72,7 +78,7 @@ class Messages extends React.Component {
           <div>{messageItems}</div>
         </div>
         <div>
-          <AddEdit onSubmit={ this.messageSubmit } isEditing={ this.state.isEditing } editId={ this.state.editId } />
+          <AddEdit onSubmit={ this.messageSubmit } isEditing={ isEditing } editId={ editId } />
         </div>
       </div>
     );
